@@ -1,42 +1,61 @@
 // BUDGET CONTROLLER
-var budgetController = (function () {})();
+var budgetController = (function () {
+  var Expense = function (id, description, value) {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  };
+
+  var Income = function (id, description, value) {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  };
+  
+  var data = {
+
+    allItems: {
+      exp: [],
+      inc: [],
+    },
+    totals : {
+      exp: 0,
+      inc: 0,
+    }
+  };
+})();
 
 // UI CONTROLLER
 var UIcontroller = (function () {
-
   var DOMstrings = {
-    inputType: '.add__type',
-    inputDescription: '.add__description',
-    inputValue: '.add__value',
-    inputBtn: '.add__btn'
-  }
+    inputType: ".add__type",
+    inputDescription: ".add__description",
+    inputValue: ".add__value",
+    inputBtn: ".add__btn",
+  };
 
   return {
-    getInput: function()  {
+    getInput: function () {
       var type = document.querySelector(DOMstrings.inputType).value; // Will be either inc or exp.
-      var description = document.querySelector(DOMstrings.inputDescription).value;
+      var description = document.querySelector(DOMstrings.inputDescription)
+        .value;
       var value = document.querySelector(DOMstrings.inputValue).value;
 
       return {
         type,
         description,
-        value
-      }
+        value,
+      };
     },
-    getDOMstrings: function() {
+    getDOMstrings: function () {
       return DOMstrings;
-    }
+    },
   };
-
-
-
 })();
 
 // GLOBAL APP CONTROL
 var controller = (function (budgetCtrl, UICtrl) {
-
   var setupEventListeners = function () {
-
     var DOM = UICtrl.getDOMstrings();
 
     document.querySelector(DOM.inputBtn).addEventListener("click", ctrlAddItem);
@@ -46,14 +65,13 @@ var controller = (function (budgetCtrl, UICtrl) {
         ctrlAddItem();
       }
     });
-  }
+  };
 
-  
   var ctrlAddItem = function () {
     // Get Input Data
 
     var input = UICtrl.getInput();
-    console.log(input)
+    console.log(input);
     // Add item to the budget controller
     // Add the new item to user interface
     // calculate the budget
@@ -62,11 +80,10 @@ var controller = (function (budgetCtrl, UICtrl) {
 
   return {
     init: function () {
-      console.log('Application Started!');
+      console.log("Application Started!");
       setupEventListeners();
-    }
-  }
-  
+    },
+  };
 })(budgetController, UIcontroller);
 
 controller.init();
